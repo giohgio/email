@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/', methods=['POST'])
 def webhook_listener():
     # Obtenha os dados enviados pelo Mercado Pago
     data = request.json
